@@ -16,19 +16,19 @@ export class TicketService {
     let params = new HttpParams()
       .set("page", page);
 
-    return this.http.get<Page>(environment.apiUrl + "/ticket", {params: params});
+    return this.http.get<Page>(environment.apiUrlHeroku + "/ticket", {params: params});
   }
 
   updateTicketById(ticket: Ticket) {
-    return this.http.put(environment.apiUrl + "/ticket/update/id/" + ticket.ticketId, ticket);
+    return this.http.put(environment.apiUrlHeroku + "/ticket/update/id/" + ticket.ticketId, ticket);
   }
 
   createTicket(ticket: Ticket) {
-    return this.http.post<Ticket>(environment.apiUrl + "/ticket", ticket);
+    return this.http.post<Ticket>(environment.apiUrlHeroku + "/ticket", ticket);
   }
 
   getTicketByTicketId(ticketId: string) {
-    return this.http.get<Ticket>(environment.apiUrl + "/ticket/id/" + ticketId);
+    return this.http.get<Ticket>(environment.apiUrlHeroku + "/ticket/id/" + ticketId);
   }
 
 }
