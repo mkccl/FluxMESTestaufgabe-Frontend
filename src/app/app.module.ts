@@ -3,14 +3,25 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LandingComponent } from './pages/landing/landing.component';
+import {HttpClientModule} from "@angular/common/http";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { TicketCardComponent } from './shared/components/ticket-card.component';
+import { TicketTableComponent } from './shared/components/ticket-table.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LandingComponent,
+    TicketCardComponent,
+    TicketTableComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

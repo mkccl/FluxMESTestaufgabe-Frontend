@@ -1,0 +1,99 @@
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createTicketModal" data-bs-whatever="@mdo">Create a Ticket</button>
+      </li>
+    </ul>
+
+  </div>
+</nav>
+
+<div class="container" *ngIf="isTicketsLoaded">
+  <!--
+  <div class="row">
+    <div class="col-2">
+      <select class="form-select" aria-label="Default select example">
+        <option selected value="999">No filter</option>
+        <option *ngFor="let status of selectUtils.statusSelect; let i = index">
+          {{status}}
+        </option>
+      </select>
+    </div>
+    <div class="col-2">
+      <select class="form-select" aria-label="Default select example">
+        <option selected value="999">No filter</option>
+        <option *ngFor="let priority of selectUtils.prioritiesSelect; let i = index">
+          {{priority}}
+        </option>
+      </select>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control" placeholder="Filter title">
+    </div>
+    <div class="col-2">
+      <button class="btn btn-primary">Apply filters</button>
+    </div>
+  </div>
+-->
+  <app-ticket-table [tickets]="tickets"></app-ticket-table>
+
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+      <li class="page-item" *ngFor="let pageNumber of pageNumbers(); let i = index">
+        <a class="page-link" (click)="onClickChangePage(i)" >{{(i)}}</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    </ul>
+  </nav>
+
+</div>
+
+
+<div class="modal fade" id="createTicketModal" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel2">New Ticket</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="ticketForm" (ngSubmit)="onTicketSubmit()">
+          <div class="row">
+            <div class="col-4">
+              <label for="priority-name" class="col-form-label">Title:</label>
+              <select class="form-select" id="priority-name" formControlName="priority" (change)="onChangeStatusSelect($event)">
+                <option [value]="i" *ngFor="let priority of selectUtils.prioritiesSelect; let i = index" >
+                  {{priority}}
+                </option>
+              </select>
+            </div>
+            <div class="col">
+              <div class="mb-3">
+                <label for="title-name" class="col-form-label">Title:</label>
+                <input type="text" class="form-control" id="title-name" formControlName="title" required>
+                <div class="hey" *ngIf="title?.invalid">
+                  Please choose a title.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="description-text" class="col-form-label">Description:</label>
+            <textarea class="form-control" id="description-text" formControlName="description"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" [disabled]="title?.invalid || priority?.invalid">Create</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+

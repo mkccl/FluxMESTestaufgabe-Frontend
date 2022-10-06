@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import {LandingComponent} from "./pages/landing/landing.component";
 
-const routes: Routes = [];
+const routes: Routes = [
+  {path: "", redirectTo: "/tasks", pathMatch: 'full' },
+  {path: "tasks", component: LandingComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
