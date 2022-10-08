@@ -105,7 +105,7 @@ export class TicketTableComponent implements OnInit {
 
   onClickEditSave() {
     if (!this.ticket.title) {
-      console.log("titel has no title");
+      console.log("Ticket has no title");
       return;
     }
 

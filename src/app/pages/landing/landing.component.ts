@@ -13,6 +13,7 @@ import {SelectUtils} from "../../shared/utils/selectUtils";
 })
 export class LandingComponent implements OnInit {
 
+  currentPageNumber = 0;
   public selectUtils = new SelectUtils();
 
   ticketForm = new FormGroup({
@@ -20,6 +21,7 @@ export class LandingComponent implements OnInit {
     description: new FormControl(""),
     priority: new FormControl("", [Validators.required])
   });
+
 
   isTicketsLoaded = false;
   isTicketEditable = false;
@@ -35,16 +37,33 @@ export class LandingComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe({
       next: (value: any) => {
+        this.currentPageNumber = value.page;
         if (value.page == undefined) {
           this.onClickChangePage(0);
         }
-        this.getTickets(value.page);
+        this.getTickets(this.currentPageNumber);
       }
     })
 
   }
 
+  onClickNextPage() {
+    this.setCurrentPageNumber(++this.currentPageNumber);
+    this.onClickChangePage(this.currentPageNumber)
+  }
+
+  onClickPreviousPage() {
+    if (this.currentPageNumber <= 0) {
+      return;
+    } else {
+      this.setCurrentPageNumber(--this.currentPageNumber);
+      this.onClickChangePage(this.currentPageNumber)
+    }
+  }
+
   getTickets(page: number) {
+    //this.isTicketsLoaded = false;
+
     this.ticketService.getTickets(page).subscribe({
       next: value => {
         console.log(value);
@@ -56,12 +75,24 @@ export class LandingComponent implements OnInit {
     })
   }
 
+  setCurrentPageNumber(pageNumber: number) {
+    this.currentPageNumber = pageNumber;
+  }
+
   onClickChangePage(value: number) {
     this.router.navigate(["tasks"], {queryParams: {
       page: value
       }});
 
+    this.setCurrentPageNumber(value);
     window.scrollTo(0, 0)
+  }
+
+  pagination(page: number) {
+    return page == this.tickets.number ? "page-link active" : "page-link";
+  }
+  test() {
+    return "page-link active";
   }
 
   pageNumbers() {

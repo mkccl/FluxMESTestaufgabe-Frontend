@@ -8,6 +8,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { TicketCardComponent } from './shared/components/ticket-card.component';
 import { TicketTableComponent } from './shared/components/ticket-table.component';
+import { LoadingComponent } from './shared/components/loading.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { TicketTableComponent } from './shared/components/ticket-table.component
     LandingComponent,
     TicketCardComponent,
     TicketTableComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,
